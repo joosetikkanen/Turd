@@ -1,3 +1,5 @@
+Ohjelmaan on tehty useita muutoksia, joilla on paikattu tietoturva-aukkoja. Muutokset löytyväy tiedostosta *findings.txt*
+
 # Ohjelman oletettu toiminta (l. speksi)
 
 Ohjelma on webbipalvelu, johon käyttäjä voi kirjautua. Kirjautunut käyttäjä voi
