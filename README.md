@@ -1,4 +1,4 @@
-Ohjelmaan on tehty useita muutoksia, joilla on paikattu tietoturva-aukkoja. Muutokset löytyvät tiedostosta [*findings.txt*](findings.md).
+Ohjelmaan on tehty useita muutoksia, joilla on paikattu tietoturva-aukkoja. Muutokset löytyvät tiedostosta [*findings.md*](findings.md).
 
 # Ohjelman oletettu toiminta (l. speksi)
 
