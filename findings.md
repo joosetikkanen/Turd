@@ -1,12 +1,9 @@
-## Harjoitustyöraportti
-
-Palauttaja: Joose Tikkanen
-Pisteitä yhteensä: 18.
-
 
 ## Ongelma 1
 Tyyppi:   Polkuinjektio
+
 Sijainti: checkPath()
+
 Kuvaus:
 
 Aliohjelmassa checkPath ei tarkasteta polkuinjektiota oikeaoppisesti normalisoimalla annettua polkua.
@@ -19,9 +16,6 @@ Aliohjelmassa checkPath ei tarkasteta polkuinjektiota oikeaoppisesti normalisoim
 
 ### Korjaus:
 
-Commit: 9c5621897e15eda8626613cdb5353aeaf38143b0
-KORJATTU commit: 3fa8075394bb4e396a91752981f20f684dac48c7 (myöhemmin tajuttu ajatusvirhe ensimmäisessä korjauksessa)
-
 Korjasin tämän näin, että polku normalisoidaan ja verrataan sen alkua merkkijonoon "/app/WebData/" + username, jotta ohjelma suojautuu paremmin polkuinjektioilta myös jatkokehittäessä (esim. poikkeuksen sijaan 
 kokematon kehittäjä koittaa poistaa ../ polusta, jolloin tarkistuksen voi ohittaa syöttämällä ....//)
 
@@ -29,16 +23,13 @@ Korjaus toimii, koska käyttäjä ei voi syöttää toisen käyttäjän hakemist
 
 Korjaus estää uuden polkuinjektion syntymisen, sillä samaa aliohjelmaa käytetään kaikissa polkuinjektiolle alttiissa kohdissa.
 
-### Pisteet(3pt)
-
-1pt vian löytämisestä
-1pt vian korjaamisesta
-1pt vikatyypin eliminoimisesta
 
 
 ## Ongelma 2
 Tyyppi:   Polkuinjektio
+
 Sijainti: delete_file()
+
 Kuvaus:
 
 Aliohjelmassa delete_file ei tarkasteta käyttäjän syöttämää polkua
@@ -54,23 +45,18 @@ jonkin järjestelmätiedoston.
 
 ### Korjaus:
 
-Commit: 20aa429b8eb3f4527771564198296f8a31d2d33e
-
 Korjasin tämän näin, että lisäsin checkPath() kutsun, jolla tarkistetaan käyttäjän antama polku tiedoston poistamiseksi
 
 Korjaus toimii, koska polku tarkistetaan ennen kuin tiedosto poistetaan
 
 Korjaus estää uuden polkuinjektion syntymisen, sillä uutta reittiä luotaessa polku tarkistetaan ennen tiedoston poistamista
 
-### Pisteet(2pt)
-
-1pt vian löytämisestä
-1pt vian korjaamisesta
-
 
 ## Ongelma 3
 Tyyppi:   Shell-injektio
+
 Sijainti: checkerLoop()
+
 Kuvaus:
 
 Aliohjelmassa checkerLoop käynnistetään shellin kautta "file"-ohjelma, joka muodostetaan merkkijonona käyttäjän antaman tiedoston nimen perusteella
@@ -83,24 +69,19 @@ Aliohjelmassa checkerLoop käynnistetään shellin kautta "file"-ohjelma, joka m
 
 ### Korjaus:
 
-Commit: 503764c2b0ba2287fd1a9ad3d39fbfa60d335581
-
 Korjasin tämän näin, että muutin subprocess.run() käyttämään listaa, johon annetaan komento ja tiedoston nimi
 
 Korjaus toimii, koska "file" ohjelmalle välitetään rakenteellisesti käyttäjän syöttämän tiedoston nimi argumenttina
 
 Korjaus estää uuden shell injektion, koska "file" komentoa ei enää ajeta shellin kautta liimamalla käyttäjän syötettä merkkijonona
 
-### Pisteet(3pt)
-
-1pt vian löytämisestä
-1pt vian korjaamisesta
-1pt vikatyypin eliminoimisesta
 
 
 ## Ongelma 4
 Tyyppi:   XSS
+
 Sijainti: serve_file()
+
 Kuvaus:
 
 Aliohjelmassa serve_file ei sanitoida jaettujen tiedostojen linkkilistaa, joka näkyy jokaiselle käyttäjälle
@@ -113,23 +94,19 @@ Aliohjelmassa serve_file ei sanitoida jaettujen tiedostojen linkkilistaa, joka n
 
 ### Korjaus:
 
-Commit: 10b06dbe3424c65fd141605d894fba9db1ce7979
-
 Korjasin tämän näin, että html data sanitoidaan bleach kirjaston avulla, jotta ohjelma ei salli käyttäjien tekemien skriptien lataamista sivulle
 
 Korjaus toimii, koska jaettujen linkkien lista sanitoidaan, jolloin mahdolliset skriptit rikkoutuvat
 
 Korjaus estää uuden XSS yrityksen linkkilistan kautta
 
-### Pisteet(2pt)
-
-1pt vian löytämisestä
-1pt vian korjaamisesta
 
 
 ## Ongelma 5
 Tyyppi:   Arkaluontoista tietoa palvelimen lokissa
+
 Sijainti: login()
+
 Kuvaus:
 
 Aliohjelmassa login haetaan käyttäjän kirjautumisiedot queryparametreista, 
@@ -142,7 +119,6 @@ ja vastaavat salasanat
 
 ### Korjaus:
 
-Commit: c53567bb9e27ae52d6bd3875e8e684cfaf90b5e5
 
 Korjasin tämän näin, että muutin kirjautumisen käyttämään HTTP POST -metodia, jotta palvelimen lokiin ei tulostuisi arkaluontoista tietoa
 
@@ -152,16 +128,13 @@ Korjaus estää käyttäjätietojen urkkimisen lokitiedoista
 
 (varsinainen lokitus ja lokien tallentaminen puuttuu ohjelmasta)
 
-### Pisteet(3pt) (mahdollisesti ylimääräisiä)
-
-1pt vian löytämisestä
-1pt vian korjaamisesta
-1pt vikatyypin eliminoimisesta
 
 
 ## Ongelma 6
 Tyyppi:   Ajastushyökkäysmahdollisuus
+
 Sijainti: login()
+
 Kuvaus:
 
 Aliohjelmassa login verrataan käyttäjän antamaa salasanaa "tietokantaan" tallennettuun 
@@ -174,8 +147,6 @@ tallennetut tunnukset ja lopulta niitä vastaavat salasanat
 
 ### Korjaus:
 
-Commit: 667c22828f3231c4bcc1aa74d8acd0001722e8a0
-
 Korjasin tämän näin, että merkkijonovertailut suoritetaan compare_digest-metodilla, jotta kirjautumiseen liittyvissä vertailuissa kestäisi aina vakiopituinen aika
 
 Korjaus toimii, koska käyttäjätietojen tarkistamiseen kuluu vakiomittainen aika riippumatta siitä, 
@@ -183,16 +154,12 @@ löytyykö vastaavaa käyttäjätunnusta tai tunnuksia vastaavia salasanoja tiet
 
 Korjaus estää käyttäjätietojen urkkimisen ajastushyökkäyksillä
 
-### Pisteet(3pt)
-
-1pt vian löytämisestä
-1pt vian korjaamisesta
-1pt vikatyypin eliminoimisesta
-
 
 ## Ongelma 7
 Tyyppi:   XSS
+
 Sijainti: share_file()
+
 Kuvaus:
 
 Aliohjelmassa share_file ei sanitoida käyttäjän syöttämää tiedoston nimeä. Ongelma on korjattu jo 
@@ -207,24 +174,19 @@ syöttämä tiedosto jo tässä vaiheessa.
 
 ### Korjaus:
 
-Commit: bf957b60a3c83ce33ee480c2ffcfb8b7e819e32b
-
 Korjasin tämän näin, että lisäsin käyttäjän syötteen sanitointia bleach kirjaston avulla
 
 Korjaus toimii, koska käyttäjä ei voi ladata palvelimelle html skriptejä
 
 Korjaus estää XSS yritykset tiedostojen avulla myös jatkossa, mikäli jaettuja tiedostoja näytetään muissakin ohjelman osissa
 
-### Pisteet(3pt)
-
-1pt vian löytämisestä
-1pt vian korjaamisesta
-1pt vikatyypin eliminoimisesta
 
 
 ## Ongelma 8
 Tyyppi:   XSS
+
 Sijainti: serve_file()
+
 Kuvaus:
 
 Aliohjelmassa serve_file ladataan jokaisen käyttäjän selaimeen bad_file_log, joka voi sisältää 
@@ -238,15 +200,8 @@ pahantahtoisia skriptejä
 
 ### Korjaus:
 
-Commit: cec36c3068c8391b84f64481f06117191ea0546c
-
 Korjasin tämän näin, että sanitoin bad_file_log sisällön, joka ladataan selaimeen
 
 Korjaus toimii, koska bad_file_log sisältämät mahdolliset skriptit eivät lataudu käyttäjien selaimissa
 
 Korjaus estää XSS yritykset hylättyjen tiedostojen kautta
-
-### Pisteet(2pt)
-
-1pt vian löytämisestä
-1pt vian korjaamisesta
