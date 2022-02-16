@@ -1,4 +1,4 @@
-Ohjelmaan on tehty useita muutoksia, joilla on paikattu tietoturva-aukkoja. Muutokset löytyväy tiedostosta *findings.txt*
+Ohjelmaan on tehty useita muutoksia, joilla on paikattu tietoturva-aukkoja. Muutokset löytyvät tiedostosta [*findings.txt*](findings.txt).
 
 # Ohjelman oletettu toiminta (l. speksi)
 
